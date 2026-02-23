@@ -60,6 +60,36 @@ def main():
     else:
         print("Raw bytes:", resp)
 
+        # Try to parse registers if this is a valid function 0x04 response
+        # Expected format: [slave, func=0x04, byte_count, data..., crc_lo, crc_hi]
+        if len(resp) >= 5 and resp[1] == 0x04:
+            byte_count = resp[2]
+            data = resp[3:3+byte_count]
+            # Interpret as big-endian 16-bit registers
+            import struct
+            if len(data) % 2 == 0:
+                regs = struct.unpack('>' + 'H' * (len(data)//2), data)
+                print('Registers:', regs)
+
+                # Common PZEM v3 mapping (community drivers):
+                # regs[0] -> voltage * 10
+                # regs[1] -> current * 1000 (mA)
+                # regs[3] -> power * 10
+                # regs[5] -> energy (Wh)
+                # regs[7] -> frequency * 10
+                # regs[8] -> power factor * 100
+                try:
+                    voltage = regs[0] / 10.0
+                    current = regs[1] / 1000.0
+                    power = regs[3] / 10.0
+                    energy_wh = regs[5]
+                    frequency = regs[7] / 10.0
+                    pf = regs[8] / 100.0
+
+                    print(f"Parsed values:\n  Voltage: {voltage} V\n  Current: {current} A\n  Power: {power} W\n  Energy: {energy_wh} Wh\n  Frequency: {frequency} Hz\n  Power factor: {pf}")
+                except Exception:
+                    print('Failed to decode registers with the expected mapping; you may need to adjust mapping for your firmware.')
+
     ser.close()
 
 if __name__ == '__main__':
