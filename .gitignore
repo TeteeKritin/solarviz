@@ -1,0 +1,66 @@
+# ─── Python ───────────────────────────────────────
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+dist/
+build/
+venv/
+.venv/
+env/
+
+# ─── Environment & Secrets ────────────────────────
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# ─── Alembic ──────────────────────────────────────
+# Keep versions folder but ignore local db state
+alembic/versions/*.pyc
+
+# ─── Node / Frontend ──────────────────────────────
+node_modules/
+dist/
+.parcel-cache/
+.cache/
+*.local
+
+# ─── Docker ───────────────────────────────────────
+# Keep docker-compose but ignore override files
+docker-compose.override.yml
+
+# ─── Database ─────────────────────────────────────
+*.sql
+*.dump
+postgres_data/
+
+# ─── Data Files ───────────────────────────────────
+data/solar_dataset/*.csv
+data/*.csv
+*.xlsx
+
+# ─── Logs ─────────────────────────────────────────
+*.log
+logs/
+*.log.*
+
+# ─── OS ───────────────────────────────────────────
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ─── IDE ──────────────────────────────────────────
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# ─── Reports / Exports ────────────────────────────
+reports/
+exports/
+*.pdf
