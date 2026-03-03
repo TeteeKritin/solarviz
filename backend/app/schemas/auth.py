@@ -1,13 +1,14 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, EmailStr
 
 
 class LoginRequest(BaseModel):
+    # Allow login using local or non-routable email addresses
     email: str
     password: str
 
 
 class RegisterRequest(BaseModel):
-    email: str
+    email: EmailStr
     full_name: str
     password: str
 
