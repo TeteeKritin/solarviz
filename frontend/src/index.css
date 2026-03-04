@@ -1,2 +1,96 @@
 * { margin: 0; padding: 0; box-sizing: border-box; }
-body { font-family: system-ui, sans-serif; background: #030712; color: white; }
+:root{
+	--bg: #f8fafc;
+	--muted: #64748b;
+	--card-bg: #ffffff;
+	--border: #e2e8f0;
+	--accent: #10b981;
+	--accent-2: #0d9488;
+	--text: #0f172a;
+}
+html,body,#root{height:100%;}
+body { font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; background: var(--bg); color: var(--text); -webkit-font-smoothing:antialiased; }
+
+/* Layout */
+.app-shell { min-height:100vh; display:flex; flex-direction:column; }
+.page-header { padding:18px 20px; color:white; border-bottom-left-radius:20px; border-bottom-right-radius:20px; }
+.page-header{ position:relative; }
+.ph-inner{ display:flex; align-items:center; justify-content:space-between; max-width:1200px; margin:0 auto; }
+.ph-title{ font-size:20px; font-weight:800; }
+.ph-sub{ font-size:13px; opacity:0.95; }
+.page-content{ max-width:1200px; margin:20px auto; width:100%; padding:18px; }
+
+/* Cards & common UI */
+.card{ background:var(--card-bg); border-radius:14px; padding:12px; box-shadow:0 6px 18px rgba(15,23,42,0.06); border:1px solid var(--border); position:relative; }
+.btn{ padding:10px 14px; border-radius:10px; border:none; cursor:pointer; font-weight:700; }
+.btn-green{ background:linear-gradient(135deg,var(--accent),var(--accent-2)); color:white; }
+
+/* Inputs */
+.input-wrap{ display:flex; align-items:center; gap:8px; border:1px solid var(--border); border-radius:10px; padding:8px 10px; background:white; }
+.input-icon{ color:var(--muted); }
+.input-field{ border:0; outline:0; font-size:14px; flex:1; background:transparent; }
+.field-label{ display:block; margin-bottom:6px; color:var(--text); font-weight:600; }
+
+/* Small utilities */
+.fade-in{ animation:fadeIn .28s ease both; }
+.fade-in-2{ animation:fadeIn .36s ease both; }
+.fade-in-3{ animation:fadeIn .44s ease both; }
+.fade-in-4{ animation:fadeIn .52s ease both; }
+@keyframes fadeIn{ from{ opacity:0; transform:translateY(6px);} to{ opacity:1; transform:none;} }
+
+.skeleton{ background:linear-gradient(90deg,#f1f5f9,#e2e8f0,#f1f5f9); height:12px; border-radius:8px; }
+
+/* Progress */
+.progress-bar{ background:#f1f5f9; border-radius:8px; height:8px; overflow:hidden; }
+.progress-fill{ height:100%; width:0%; background:linear-gradient(90deg,var(--accent),var(--accent-2)); }
+
+/* Nav */
+.bottom-nav{ position:fixed; bottom:14px; left:50%; transform:translateX(-50%); display:flex; gap:8px; background:rgba(255,255,255,0.95); padding:8px 10px; border-radius:14px; box-shadow:0 8px 24px rgba(2,6,23,0.08); width:calc(100% - 32px); max-width:640px; justify-content:space-between; }
+.nav-item{ display:flex; flex-direction:column; align-items:center; gap:4px; padding:6px 10px; color:var(--muted); text-decoration:none; font-size:12px; border-radius:10px; flex:1 1 0; min-width:0; }
+.nav-item.active{ color:var(--text); background:linear-gradient(90deg,rgba(16,185,129,0.08),rgba(13,148,136,0.06)); }
+.nav-icon{ display:flex; align-items:center; justify-content:center; }
+
+/* Hamburger menu */
+.hamburger-menu{ position:absolute; right:10px; top:54px; background:white; border:1px solid var(--border); border-radius:10px; box-shadow:0 8px 28px rgba(2,6,23,0.08); padding:8px; display:flex; flex-direction:column; gap:4px; min-width:160px; z-index:1000; }
+.hamburger-item{ display:flex; align-items:center; gap:8px; padding:8px; color:var(--text); text-decoration:none; border-radius:8px; }
+.hamburger-item:hover{ background:#f8fafc; }
+
+/* Misc */
+.icon-box{ width:44px; height:44px; border-radius:12px; display:flex; align-items:center; justify-content:center; }
+.status-dot.green{ width:12px; height:12px; background:#16a34a; border-radius:50%; box-shadow:0 0 0 4px rgba(16,185,129,0.08); }
+
+/* Responsive */
+@media (max-width:720px){ .ph-inner{ padding:0 12px; } .page-content{ padding:12px; padding-bottom:96px; } .bottom-nav{ left:12px; transform:none; right:12px; bottom:12px; } }
+
+/* Time toggle buttons on Monitor page */
+.time-toggle{ display:flex; gap:8px; }
+.time-btn{ padding:8px 12px; border-radius:999px; border:1px solid var(--border); background:transparent; color:var(--muted); cursor:pointer; font-weight:600; }
+.time-btn.active{ background:linear-gradient(90deg,var(--accent),var(--accent-2)); color:white; border-color:transparent; }
+
+/* Ensure bottom nav doesn't cover interactive cards on small screens */
+.page-content{ margin-bottom:20px; }
+
+/* small helpers for typography */
+.card-title{ font-weight:700; font-size:14px; }
+.card-sub{ color:var(--muted); font-size:12px; margin-bottom:8px; }
+
+@media (max-width:480px){
+	.bottom-nav{ padding:6px 8px; border-radius:12px; }
+	.nav-item{ font-size:11px; padding:6px 6px; }
+	/* ensure five items fit: reduce gaps and allow items to shrink */
+	.bottom-nav{ gap:6px; }
+}
+
+/* FAQ styles for Help page */
+.faq-item{ border-top:1px solid var(--border); padding:8px 0; }
+.faq-item:first-of-type{ border-top:0; }
+.faq-trigger{ width:100%; display:flex; align-items:center; justify-content:space-between; gap:8px; background:transparent; border:0; padding:10px 0; font-weight:600; color:var(--text); cursor:pointer; }
+.faq-trigger span{ text-align:left; }
+.faq-answer{ padding:8px 0 12px; color:var(--muted); font-size:13px; line-height:1.5; }
+
+/* teal button used on Help page */
+.btn-teal{ background:linear-gradient(90deg,#06b6d4,#0891b2); color:white; padding:10px 14px; border-radius:10px; border:none; display:inline-flex; gap:8px; align-items:center; }
+
+/* increase bottom space on very small screens to avoid overlap */
+@media (max-width:380px){ .page-content{ padding-bottom:120px; } }
+
