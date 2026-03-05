@@ -12,6 +12,9 @@ class Settings(BaseSettings):
     CLOUD_HEALTH_URL: Optional[str] = None
     CLOUD_SYNC_ENABLED: bool = False
     ENVIRONMENT: str = "production"
+    PZEM_PORT: str = "/dev/ttyAMA0"
+    PZEM_BAUDRATE: int = 9600
+    PZEM_DEVICE_ID: int = 1
 
     class Config:
         env_file = ".env"

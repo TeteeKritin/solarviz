@@ -36,6 +36,8 @@ services:
       - solarviz_net
     expose:
       - "8000"
+    devices:
+      - "/dev/ttyAMA0:/dev/ttyAMA0"
 
   frontend:
     build:
