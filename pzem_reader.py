@@ -6,7 +6,7 @@ import logging
 API_BASE     = "http://localhost/api/v1"
 API_EMAIL    = "kritin.te@gmail.com"   # ← your email
 API_PASSWORD = "reborn1212"               # ← your password
-INTERVAL     = 5
+INTERVAL     = 60
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s %(message)s")
 log = logging.getLogger(__name__)
@@ -27,7 +27,7 @@ client = ModbusSerialClient(port="/dev/ttyAMA0", baudrate=9600, timeout=1)
 if not client.connect():
     log.error("Cannot connect to PZEM")
     raise SystemExit
-log.info("Connected to PZEMmmmmmmm")
+log.info("Connected to PZEM")
 
 token = get_token()
 

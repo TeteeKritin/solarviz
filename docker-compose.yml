@@ -25,6 +25,7 @@ services:
       context: ./backend
       dockerfile: Dockerfile
     restart: unless-stopped
+    privileged: true
     env_file:
       - ./backend/.env
     depends_on:
@@ -59,6 +60,28 @@ services:
     depends_on:
       - backend
       - frontend
+    networks:
+      - solarviz_net
+  
+  pzem-reader:
+    build:
+      context: ./pzem
+      dockerfile: Dockerfile
+    container_name: solarviz-pzem
+    restart: always
+    privileged: true
+    devices:
+      - "/dev/ttyAMA0:/dev/ttyAMA0"
+    environment:
+      - PZEM_PORT=/dev/ttyAMA0
+      - PZEM_BAUDRATE=9600
+      - PZEM_DEVICE_ID=1
+      - API_BASE=http://172.17.0.1/api/v1
+      - API_EMAIL=kritin.te@gmail.com
+      - API_PASSWORD=reborn1212
+      - READ_INTERVAL=30
+    depends_on:
+      - nginx
     networks:
       - solarviz_net
 

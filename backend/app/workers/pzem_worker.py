@@ -1,3 +1,4 @@
+import time
 import logging
 from pymodbus.client import ModbusSerialClient
 from sqlalchemy.orm import Session
@@ -16,10 +17,13 @@ def connect_pzem() -> ModbusSerialClient:
     c = ModbusSerialClient(
         port=settings.PZEM_PORT,
         baudrate=settings.PZEM_BAUDRATE,
-        timeout=1,
+        timeout=3,        # ← increased from 1 to 3
+        retries=3,        # ← retry each read 3 times
+        retry_on_empty=True,  # ← retry if empty response
     )
     if c.connect():
         log.info("PZEM connected on %s", settings.PZEM_PORT)
+        time.sleep(1)     # ← give PZEM time to wake up
     else:
         log.error("PZEM connection failed on %s", settings.PZEM_PORT)
     return c
